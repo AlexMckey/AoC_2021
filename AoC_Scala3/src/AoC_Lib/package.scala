@@ -1,0 +1,9 @@
+import scala.io.Source.fromFile
+
+package object AoC_Lib {
+  val DataDir = """d:\YandexDisk\DevsExercises\AdventOfCode\2021\PuzzleInput\"""
+  def input(filename: String): Iterator[String] = fromFile(DataDir+filename).getLines
+  def inputStr(filename: String): String = fromFile(DataDir+filename).mkString.trim
+  def inputInts(filename: String): Seq[Int] = input(filename).map(_.toInt).toList
+  def inputStrs(filename: String): Seq[String] = input(filename).toList
+}
