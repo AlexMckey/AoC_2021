@@ -31,3 +31,7 @@ val res2 = cmds.scanLeft((0,Pos.zero)){
   }
 }
 res2
+
+val s = "forward 5"
+val a = s.split(' ')
+a(0) -> a(1).toInt
