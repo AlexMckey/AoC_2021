@@ -1,9 +1,8 @@
 .DS_Store
 *.class
+*.tasty
 *.log
 *~
-*.tasty
-
 # sbt specific
 dist/*
 target/
