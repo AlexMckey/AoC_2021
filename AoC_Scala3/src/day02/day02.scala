@@ -13,7 +13,7 @@ object day02 {
     }}.toList
 
   @main
-  def main(): Unit = {
+  def Dive(): Unit = {
     val res1 = cmds.foldLeft(Pos.zero)(_+_)
     Console.println(res1.x * res1.y) // 2215080
 
