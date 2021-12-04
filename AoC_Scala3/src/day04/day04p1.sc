@@ -3,6 +3,11 @@ import AoC_Lib.*
 val s = "7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1\n\n22 13 17 11  0\n 8  2 23  4 24\n21  9 14 16  7\n 6 10  3 18  5\n 1 12 20 15 19\n\n 3 15  0  2 22\n 9 18 13 17  5\n19  8  7 25 23\n20 11 10 24  4\n14 21 16 12  6\n\n14 21 17 24  4\n10 16 15  9 19\n18  8 23 26 20\n22 11 13  6  5\n 2  0 12  3  7"
 val ss = s.splitByBlankLines()
 var nums = ss.head.split(',').map(_.toInt)
+val allBoards = ss.tail
+  .map(_.split('\n')
+    .map(_.trim.replace("  ", " ")
+      .split(' ')
+      .map(_.toInt)))
 val bss = ss.drop(1).map(_.replace('\n',' ').replace("  "," "))
 val bs = bss.map(_.strip().split(' ').map(_.toInt))
 val b = bs.head
@@ -85,4 +90,15 @@ def recLose(ns: List[Int], bs: List[Board]): Int = {
     bs.last.Sum * n
   else recLose(ns.tail,restBoards)
 }
-val res1 = recLose(nums.toList,boards.toList)
+val res2 = recLose(nums.toList,boards.toList)
+
+def boardScores(nums: Seq[Int], boards: Seq[Array[Array[Int]]]) =
+  nums.foldLeft(Seq.empty[Int], Set.empty[Int], boards) {
+    case ((scores, marked, active), num) =>
+      val newMarked     = marked + num
+      val (won, newActive) = active.partition(b => (b ++ b.transpose).exists(_.forall(newMarked.contains)))
+      val newScores     = won.map(board => num * board.flatten.filterNot(newMarked.contains).sum)
+      (scores ++ newScores, newMarked, newActive)
+  }._1
+
+boardScores(nums, allBoards)
