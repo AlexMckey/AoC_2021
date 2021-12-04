@@ -1,6 +1,5 @@
 package day03.bintrans
 
-import AoC_Lib.Pos
 import AoC_Lib.SomeDay
 import AoC_Lib.toStrs
 
