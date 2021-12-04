@@ -13,3 +13,5 @@ i.sliding(3).map(_.sum).sliding(2)
   }
   .count(_ < 0)
 // 5
+i.zip(i.tail)
+i.zip(i.drop(3))
