@@ -21,7 +21,7 @@ object day03 {
   def part2(rep: List[String]): Int = {
     @tailrec
     def calcRate(bins: List[String], bitCheck: Char = '1', pos: Int = 0): Int = {
-      if bins.length == 1 then
+      if bins.size == 1 then
         Integer.parseInt(bins.head,2)
       else {
         val bitCnt = bins.map(_(pos)).count(_ == bitCheck) * 2

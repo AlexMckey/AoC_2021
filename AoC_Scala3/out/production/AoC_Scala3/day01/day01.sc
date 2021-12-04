@@ -1,6 +1,7 @@
 val s = "199\n200\n208\n210\n200\n207\n240\n269\n260\n263"
 val i = s.split('\n').map(_.toInt).toList
-i.sliding(2).toList
+val ss = i.sliding(2).toList
+ss
   .collect{
     case List(a1,a2) => a1.compare(a2)
   }

@@ -3,8 +3,10 @@ val bns = s.split('\n').map(_.toCharArray).transpose.toList
 val bin = bns.map(_.count(_ == '1').compareTo(bns.head.length/2))
   .map(i => (i+1)/2)
   .mkString
+Integer.parseInt(bin,2)
 bns.length
 math.pow(2,bns.length).toInt-1
+(1 << bns.length) - 1
 val (gr,er) = bns
   .map(_
     .groupMapReduce(identity)(_ => 1)(_ + _)
@@ -15,4 +17,3 @@ val (gr,er) = bns
   .unzip
 Integer.parseInt(gr.mkString,2)
 Integer.parseInt(er.mkString,2)
-Integer.parseInt(bin,2)
