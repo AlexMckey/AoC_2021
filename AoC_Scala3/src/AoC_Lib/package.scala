@@ -6,4 +6,6 @@ package object AoC_Lib {
   def inputStr(filename: String): String = fromFile(DataDir+filename).mkString.trim
   def inputInts(filename: String): Seq[Int] = input(filename).map(_.toInt).toList
   def inputStrs(filename: String): Seq[String] = input(filename).toList
+  extension (s: String)
+    def splitByBlankLines(): Seq[String] = s.split("\n\n")
 }
