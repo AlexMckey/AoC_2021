@@ -7,7 +7,7 @@ import scala.annotation.tailrec
 object day04 {
   private val ss: Seq[String] = inputStr("input04.txt").splitByBlankLines()
 
-  def part1(): Int = {
+  def part1: Int = {
     @tailrec
     def recHelper(ns: List[Int], bs: List[Board]): Int = {
       val n = ns.head
@@ -22,7 +22,7 @@ object day04 {
     recHelper(nums.toList,boards.toList)
   }
 
-  def part2(): Int = {
+  def part2: Int = {
     @tailrec
     def recHelper(ns: List[Int], bs: List[Board]): Int = {
       val n = ns.head
@@ -39,8 +39,8 @@ object day04 {
 
   @main
   def GiantSquid(): Unit = {
-    Console.println(part1()) // 65325
-    Console.println(part2()) // 4624
+    Console.println(part1) // 65325
+    Console.println(part2) // 4624
   }
 
 }
