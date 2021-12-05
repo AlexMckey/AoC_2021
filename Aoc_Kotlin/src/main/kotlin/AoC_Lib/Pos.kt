@@ -20,6 +20,10 @@ data class Pos(var x: Int = 0, var y: Int = 0) {
 
     companion object {
         fun toPos(p: Pair<Int,Int>): Pos = Pos(p.first, p.second)
+        fun fromString(s: String): Pos = s
+            .split(',')
+            .map(String::toInt)
+            .let { Pos(it.first(), it.last()) }
         val Zero = Pos(0,0)
         val Start = Zero
     }
