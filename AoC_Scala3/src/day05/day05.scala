@@ -1,7 +1,8 @@
 package day05
 
 import AoC_Lib.*
-import Pos.*
+import Pos.toPos
+import IterableExtensions.groupCount
 
 object day05 {
   val ls: Seq[Line] = inputStrs("input05.txt")
@@ -9,14 +10,14 @@ object day05 {
       .map(_.toPos))
     .map{ case Array(p1, p2) => Line(p1,p2) }
 
-  def overlappingPoints(ls: Seq[Line], filter: Line => Boolean): Int =
+  def overlappingPoints(ls: Seq[Line], filter: Line => Boolean = _ => true): Int =
     ls.filter(filter)
       .flatMap(_.expand)
-      .groupBy(identity)
-      .count(_._2.length > 1)
+      .groupCount(identity)
+      .count(_._2 > 1)
 
   def part1: Int = overlappingPoints(ls, _.isVH)
-  def part2: Int = overlappingPoints(ls, _ => true)
+  def part2: Int = overlappingPoints(ls)
 
   @main
   def HydrothermalVenture(): Unit = {
