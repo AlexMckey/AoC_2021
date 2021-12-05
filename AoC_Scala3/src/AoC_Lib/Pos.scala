@@ -38,10 +38,17 @@ case class Pos(x: Int, y: Int) extends BoxPosOps[Pos] {
 
   override def max(that: Pos): Pos =
     Pos(x max that.x, y max that.y)
+
+  override def toString: String = s"[$x,$y]"
 }
 
 object Pos extends PosFactory[Pos] {
   override val zero: Pos = Pos(0, 0)
+  extension (s: String)
+    def toPos: Pos = {
+      val Array(x,y) = s.split(',').map(_.toInt)
+      Pos(x,y)
+    }
 
   val axisOffsets: Seq[Pos] = Seq(Pos(0, 1), Pos(-1, 0), Pos(1, 0), Pos(0, -1))
   val diagonalOffsets: Seq[Pos] = Seq(Pos(-1, 1), Pos(1, 1), Pos(-1, -1), Pos(1, -1))
