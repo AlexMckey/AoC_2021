@@ -3,7 +3,7 @@ package day02
 import AoC_Lib.inputStrs
 
 object day02_Perfect {
-  val cmds: Seq[(String, Int)] = inputStrs("input02.txt")
+  val cmds: Seq[(String, Int)] = inputStrs(day = 2)
     .map(_.split(' '))
     .collect{ case Array(cmd, num) => cmd -> num.toInt}
 

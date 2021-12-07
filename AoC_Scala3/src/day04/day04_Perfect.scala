@@ -5,7 +5,7 @@ import AoC_Lib.*
 import scala.annotation.tailrec
 
 object day04_Perfect {
-  val ss: Seq[String] = inputStr("input04.txt").splitByBlankLines()
+  val ss: Seq[String] = inputStr(day = 4).splitByBlankLines()
 
   val nums: Array[Int] = ss.head.split(',').map(_.toInt)
   val boards: Seq[Array[Array[Int]]] = ss.tail

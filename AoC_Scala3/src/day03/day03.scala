@@ -5,7 +5,7 @@ import AoC_Lib.*
 import scala.annotation.tailrec
 
 object day03 {
-  val report = inputStrs("input03.txt").toList
+  val report = inputStrs(day = 3).toList
 
   def part1(rep: List[String]): Int = {
     val bins = report.map(_.toCharArray).transpose

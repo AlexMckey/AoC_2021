@@ -3,7 +3,7 @@ package day01
 import AoC_Lib.*
 
 object day01 {
-  val nums: Seq[Int] = inputInts("input01.txt")
+  val nums: Seq[Int] = inputInts(day = 1)
 
   def calcDeeps(is: Seq[Int]): Int =
     is.sliding(2).count { case Seq(a1, a2) => a1 < a2 }

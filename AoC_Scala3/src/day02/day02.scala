@@ -3,7 +3,7 @@ package day02
 import AoC_Lib.*
 
 object day02 {
-  val cmds: Seq[Pos] = inputStrs("input02.txt")
+  val cmds: Seq[Pos] = inputStrs(day = 2)
     .map(_.split(' '))
     .collect{ case Array(a1,a2) => a1 -> a2.toInt match {
       case ("forward",i) => Pos(i,0)

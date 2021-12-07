@@ -5,7 +5,7 @@ import Pos.toPos
 import IterableExtensions.groupCount
 
 object day05 {
-  val ls: Seq[Line] = inputStrs("input05.txt")
+  val ls: Seq[Line] = inputStrs(day = 5)
     .map(_.split(" -> ")
       .map(_.toPos))
     .map{ case Array(p1, p2) => Line(p1,p2) }

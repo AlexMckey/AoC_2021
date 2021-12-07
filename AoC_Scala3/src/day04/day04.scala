@@ -5,7 +5,7 @@ import AoC_Lib.*
 import scala.annotation.tailrec
 
 object day04 {
-  private val ss: Seq[String] = inputStr("input04.txt").splitByBlankLines()
+  private val ss: Seq[String] = inputStr(day = 4).splitByBlankLines()
 
   def part1: Int = {
     @tailrec
