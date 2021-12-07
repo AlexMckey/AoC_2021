@@ -9,3 +9,9 @@ fun <T> List<List<T>>.transpose(): List<List<T>> {
         }
     }
 }
+
+fun <T: Comparable<T>> List<T>.mediana(): T {
+    val l = this.sortedBy { it }
+    val s = this.size
+    return l[s/2]
+}
