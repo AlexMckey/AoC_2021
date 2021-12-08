@@ -6,3 +6,4 @@ fun String.toStrs(): List<String> = this.lines()
 fun String.splitByBlankLines(): List<String> = this.split("\n\n")
 fun String.replaceAll(pairs: List<Pair<Char,Char>>) = pairs
     .fold(this){ acc, (from, to) -> acc.replace(from,to) }
+fun String.words(): List<String> = this.split(' ')
