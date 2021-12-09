@@ -40,6 +40,8 @@ case class Pos(x: Int, y: Int) extends BoxPosOps[Pos] {
     Pos(x max that.x, y max that.y)
 
   override def toString: String = s"[$x,$y]"
+  
+  def near4: Seq[Pos] = Pos.axisOffsets.map(_ + this)
 }
 
 object Pos extends PosFactory[Pos] {
