@@ -2,7 +2,30 @@ package AoC_Lib
 
 import kotlin.math.abs
 
-data class Pos(var x: Int = 0, var y: Int = 0) {
+enum class NearDir {
+    Axis
+    {
+        override val ds: List<Pos> = allds.filter { it.x == 0 || it.y == 0 }
+    },
+    Diagonal
+    {
+        override val ds: List<Pos> = allds.filter { it.x != 0 && it.y != 0 }
+    },
+    All
+    {
+        override val ds: List<Pos> = allds
+    };
+    abstract val ds: List<Pos>
+    private val r = -1..1
+    protected val allds: List<Pos> = r.flatMap { x -> r.map { y -> Pos(x,y) } }
+        .minus(Pos(0,0))
+}
+
+abstract class Nears<T> {
+    abstract fun near(dir: NearDir = NearDir.All): List<T>
+}
+
+data class Pos(var x: Int = 0, var y: Int = 0): Nears<Pos>() {
     override fun toString(): String = "[x:$x,y:$y]"
     operator fun plus(other: Pos) = Pos(other.x + x, other.y + y)
     operator fun plus(other: Pair<Int, Int>) = Pos(other.first + x, other.second + y)
@@ -27,6 +50,9 @@ data class Pos(var x: Int = 0, var y: Int = 0) {
         val Zero = Pos(0,0)
         val Start = Zero
     }
+
+    override fun near(dir: NearDir): List<Pos> = dir.ds.map { it + this }
 }
 
 fun Pos.toPair(): Pair<Int,Int> = this.x to this.y
+fun Pos.inBounds(xRange: IntRange, yRange: IntRange) = this.x in xRange && this.y in yRange
