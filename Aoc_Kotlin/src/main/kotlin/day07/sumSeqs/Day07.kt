@@ -1,7 +1,7 @@
 package day07.sumSeqs
 
 import AoC_Lib.SomeDay
-import AoC_Lib.mediana
+import AoC_Lib.median
 import AoC_Lib.toInts
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
@@ -11,7 +11,7 @@ object Day07: SomeDay(2021,7) {
 
     override fun first(data: String): Any? {
         val nums = data.replace(',','\n').toInts()
-        val mediana = nums.mediana()//nums.sorted()[nums.size/2]
+        val mediana = nums.median()//nums.sorted()[nums.size/2]
         return nums.sumOf { (it - mediana).absoluteValue }
     } // 343468 Time: 71ms
 
