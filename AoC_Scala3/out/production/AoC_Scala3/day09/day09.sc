@@ -13,7 +13,7 @@ val board: Map[Pos, Int] = s.split('\n')
     .zipWithIndex
     .map((c: Char,x) => Pos(x,y) -> c.asDigit))
   .toMap
-  .withDefaultValue(10)
+  .withDefaultValue(9)
 val lps = board
   .filter((p: Pos,i) => p.near
     .map(board)
