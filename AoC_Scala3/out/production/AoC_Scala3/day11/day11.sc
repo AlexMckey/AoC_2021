@@ -43,10 +43,15 @@ def step(board: Map[Pos,Int]): (Int, Map[Pos,Int]) = {
       val pos = flash.head
       var newBoard = board + (pos -> 0)
       val neighbors = pos.near.filter(newBoard.contains).filterNot(flashed.contains)
-      newBoard = neighbors.foldLeft(newBoard)((b,p) => b + (p -> (b(p) + 1)))
-      val newFlash = neighbors.filter(newBoard(_) > 9) ++: flash
+      //newBoard = neighbors.foldLeft(newBoard)((b,p) => b + (p -> (b(p) + 1)))
+      newBoard = newBoard
+        ++ neighbors
+          .groupMapReduce(identity)(_ => 1)(_ + _)
+          .map((p,i) => p -> (newBoard(p) + i))
+      val newFlash = neighbors.filter(newBoard(_) > 9).filterNot(flashed.contains)
+        ++: flash
       val newFlashed = flashed + pos
-      rec(newBoard,newFlash,flashed)
+      rec(newBoard,newFlash,newFlashed)
     }
   }
   val updatedBoard = board.view.mapValues(_ + 1).toMap
@@ -57,32 +62,4 @@ def step(board: Map[Pos,Int]): (Int, Map[Pos,Int]) = {
 val (c1,b1) = step(board)
 printBoard(b1)
 val (c2,b2) = step(b1)
-printBoard(b1)
-
-//  var b = board.view.mapValues(_ + 1).toMap
-//  printBoard(b)
-//  var bf = b.filter(_._2 == 10).keys
-//  println(bf)
-//  var cnt = 0
-//  while bf.nonEmpty
-//  do {
-//    cnt += bf.size
-//    val bd = bf.flatMap(_.near).filter(p => b.contains(p) && b(p) < 9)
-//
-//      .filter(p => b.contains(p) && b(p) < 10)
-//      .groupMapReduce(identity)(_ => 1)(_ + _)
-//      .map{ (k, d) => k -> (b(k) + d) }
-//    b = b.view ++: bd
-//    printBoard(b)
-//    bf = b.filter(_._2 == 10).keys.toSet diff bf
-//    println(bf)
-//  }
-//  cnt -> b.map((p,v) => p -> (if v >= 10 then 0 else v))
-//}
-//var cnt = 0
-//val s1 = step(board)
-//cnt += s1._1
-//printBoard(s1._2)
-//val s2 = step(s1._2)
-//cnt += s2._1
-//printBoard(s2._2)
+printBoard(b2)
