@@ -1,13 +1,18 @@
 package day07.sumSeqs
 
 import AoC_Lib.SomeDay
-import AoC_Lib.median
 import AoC_Lib.toInts
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 
 object Day07: SomeDay(2021,7) {
     override val title = "The Treachery of Whales"
+
+    fun <T: Comparable<T>> List<T>.median(): T {
+        val l = this.sortedBy { it }
+        val s = this.size
+        return l[s/2]
+    }
 
     override fun first(data: String): Any? {
         val nums = data.replace(',','\n').toInts()

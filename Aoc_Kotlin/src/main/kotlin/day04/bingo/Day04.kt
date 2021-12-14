@@ -1,11 +1,20 @@
 package day04.bingo
 
 import AoC_Lib.SomeDay
-import AoC_Lib.splitByBlankLines
-import AoC_Lib.transpose
+
+typealias ListGrid<T> = List<List<T>>
 
 object Day04: SomeDay(2021,4) {
     override val title = "Giant Squid"
+
+    private fun <T> ListGrid<T>.transpose(): ListGrid<T> =
+        this.filter { it.isNotEmpty() }.let { ys ->
+            return when (ys.isNotEmpty()) {
+                true -> listOf(ys.map { it.first() })
+                    .plus(ys.map { it.drop(1) }.transpose())
+                else -> emptyList()
+            }
+        }
 
     fun makeBoards(bs: List<String>): List<Board> =
         bs.map { it
@@ -28,7 +37,7 @@ object Day04: SomeDay(2021,4) {
             .let { it.index to it.value.sumMarked() * ns[it.index-1] } }
 
     override fun first(data: String): Any? {
-        val ss = data.splitByBlankLines()
+        val ss = data.split("\n\n")
         val nums = ss.first().split(',').map(String::toInt)
         val boards = makeBoards(ss.drop(1))
         val res = gameBingo(nums,boards)
@@ -36,7 +45,7 @@ object Day04: SomeDay(2021,4) {
     } // 65325 Time: 73ms
 
     override fun second(data: String): Any? {
-        val ss = data.splitByBlankLines()
+        val ss = data.split("\n\n")
         val nums = ss.first().split(',').map(String::toInt)
         val boards = makeBoards(ss.drop(1))
         val res = gameBingo(nums,boards)

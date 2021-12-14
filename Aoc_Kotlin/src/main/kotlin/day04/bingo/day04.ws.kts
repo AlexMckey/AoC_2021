@@ -1,5 +1,3 @@
-import AoC_Lib.splitByBlankLines
-
 val s = "7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1\n" +
         "\n" +
         "22 13 17 11  0\n" +
@@ -19,7 +17,7 @@ val s = "7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1\
         "18  8 23 26 20\n" +
         "22 11 13  6  5\n" +
         " 2  0 12  3  7"
-val ss = s.splitByBlankLines()
+val ss = s.split("\n\n")
 val nums = ss.first().split(',').map(String::toInt)
 nums
 val bs = ss
