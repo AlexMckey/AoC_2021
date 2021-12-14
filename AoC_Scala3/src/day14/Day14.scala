@@ -33,20 +33,19 @@ object Day14 {
           rules(pattern).map(_ -> cnt)
         }.groupMapReduce(_._1)(_._2)(_ + _)
       }.drop(count).next()
-    val twoChars = List(polymerTemplate.head,polymerTemplate.last)
     val start = polymerTemplate.sliding(2).toList
       .groupMapReduce(identity)(_ => 1L)(_ + _)
     val polymer = iterMap(start)
     val charCounts = polymer.toList
-      .flatMap{ (c,i) => List(c.head -> i, c.last -> i) }
+      .map{ (c,i) => c.head -> i }
       .groupMapReduce(_._1)(_._2)(_ + _)
-      .view.mapValues(_ / 2)
-      .map( (c,i) => c -> (if twoChars.contains(c) then i + 1 else i))
+      .map{ (c,i) => c -> (if polymerTemplate.last == c then i + 1 else i) }
     charCounts.toMap
   }
 
   def part1: Int = {
-    val res = iterByStrings(init, 10).groupMapReduce(identity)(_ => 1)(_ + _).values
+    val res = iterByStrings(init, 10)
+      .groupMapReduce(identity)(_ => 1)(_ + _).values
     res.max - res.min
   }
 

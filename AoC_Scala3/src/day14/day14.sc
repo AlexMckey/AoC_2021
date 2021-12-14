@@ -63,6 +63,10 @@ iterMap(rm0,10).toList.flatMap{ (s,i) => List(s.head -> i, s.last -> i) }
   .map(p => p._1 -> p._2 / 2)
   .map(p => if (init.head :: init.last :: Nil)
     .contains(p._1) then p._1 -> (p._2 + 1) else p._1 -> p._2)
+iterMap(rm0,10).toList
+  .map{ (s,i) => s.head -> i }
+  .groupMapReduce(_._1)(_._2)(_ + _)
+  .map((c,i) => c -> (if c == init.last then i + 1 else i))
 def calcCnt(init: String, cnt: Int): Map[Char,Long] = {
   val start = init.sliding(2).toList
     .groupMapReduce(identity)(_ => 1L)(_ + _)
