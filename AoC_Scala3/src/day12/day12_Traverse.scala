@@ -3,7 +3,6 @@ import AoC_Lib.*
 import scala.annotation.tailrec
 
 type Cave = String
-type Path = List[Cave]
 
 object day12_Traverse {
   val m: Seq[(Cave, Cave)] = inputStrs(day = 12)
