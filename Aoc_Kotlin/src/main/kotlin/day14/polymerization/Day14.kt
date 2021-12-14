@@ -1,12 +1,11 @@
 package day14.polymerization
 
 import AoC_Lib.*
-import java.lang.StringBuilder
 
 object Day14: SomeDay(2021,14) {
     override val title = "Extended Polymerization"
 
-    fun makePoly(polyPattern: String, rules: Map<Pair<Char,Char>,List<Pair<Char,Char>>>, cnt: Int): Long =
+    private fun makePoly(polyPattern: String, rules: Map<Pair<Char,Char>,List<Pair<Char,Char>>>, cnt: Int): Long =
         generateSequence(polyPattern
             .zipWithNext()
             .groupingBy { it }
@@ -24,14 +23,18 @@ object Day14: SomeDay(2021,14) {
             .mapValues { it.value.sum() }
             .let { it + (polyPattern[0] to it[polyPattern[0]]!! + 1) }
             .let { it.maxOf { it.value } - it.minOf { it.value } }
-    fun makeRules(rs: String): Map<Pair<Char,Char>,List<Pair<Char,Char>>> =
-        rs.lines()
-            .map { it
+    private fun makeRules(rs: String): Map<Pair<Char,Char>,List<Pair<Char,Char>>> =
+        rs.lines().associate {
+            it
                 .split(" -> ")
-                .let { (it.first().first() to it.first().last()) to
-                        listOf(it.first().first() to it.last().first(),
-                            it.last().first() to it.first().last()) }}
-            .toMap()
+                .let {
+                    (it.first().first() to it.first().last()) to
+                            listOf(
+                                it.first().first() to it.last().first(),
+                                it.last().first() to it.first().last()
+                            )
+                }
+        }
 
     override fun first(data: String): Any? {
         val (initPoly, rs) = data.split("\n\n")
