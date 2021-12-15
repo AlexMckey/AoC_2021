@@ -30,16 +30,17 @@ object day15 {
     None
   }
 
-  val maxPosInGrid: Pos = grid.keySet.reduce(_ max _)
+  val maxPos@Pos(width,height) = grid.keySet.reduce(_ max _)
+  val scale = 5
 
-  def part1: Int = dijkstraSearch(grid.withDefaultValue(-1),Pos.zero,maxPosInGrid).get
+  def part1: Int = dijkstraSearch(grid.withDefaultValue(-1), Pos.zero, maxPos).get
 
   val fullgrid: Map[Pos, Int] = grid.withDefault{
-    p => if p.x < 0 || p.y < 0 || p.x > (maxPosInGrid.x + 1) * 5 - 1 || p.y > (maxPosInGrid.y + 1) * 5 - 1 then -1
-    else (grid(Pos(p.x % (maxPosInGrid.x + 1), p.y % (maxPosInGrid.y + 1))) + p.x / (maxPosInGrid.x + 1) + p.y / (maxPosInGrid.y + 1) - 1) % 9 + 1
+    p => if p.x < 0 || p.y < 0 || p.x > (width + 1) * scale - 1 || p.y > (height + 1) * scale - 1 then -1
+    else (grid(Pos(p.x % (width + 1), p.y % (height + 1))) + p.x / (width + 1) + p.y / (height + 1) - 1) % 9 + 1
   }
 
-  def part2: Long = dijkstraSearch(fullgrid,Pos.zero,5*:(maxPosInGrid+Pos(1,1))-Pos(1,1)).get
+  def part2: Long = dijkstraSearch(fullgrid, Pos.zero, scale *: (maxPos + Pos(1,1)) - Pos(1,1)).get
 
   @main
   def Chiton(): Unit = {
