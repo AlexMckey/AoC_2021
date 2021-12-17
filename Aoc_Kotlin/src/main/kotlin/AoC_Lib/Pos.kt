@@ -29,7 +29,7 @@ data class Pos(var x: Int = 0, var y: Int = 0): Nears<Pos>() {
     override fun toString(): String = "[x:$x,y:$y]"
     operator fun plus(other: Pos) = Pos(other.x + x, other.y + y)
     operator fun plus(other: Pair<Int, Int>) = Pos(other.first + x, other.second + y)
-    operator fun minus(other: Pos) = Pos(other.x - x, other.y - y)
+    operator fun minus(other: Pos) = Pos(x - other.x, y - other.y)
     operator fun plusAssign(other: Pos) = run { x += other.x; y += other.y }
     operator fun minusAssign(other: Pos) = run { x -= other.x; y -= other.y }
     operator fun unaryMinus() = Pos(-x, -y)
