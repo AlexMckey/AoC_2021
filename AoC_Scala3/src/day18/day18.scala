@@ -82,11 +82,14 @@ object day18 {
 
   def part2: Int = {
     val ns = inputStrs(day = 18).map(Tree.parse)
-    ns.flatMap {
-      a =>
-        ns.filterNot { b => a == b }
-          .map { b => (a + b).magnitude }
-    }.max
+    ns.combinations(2).flatMap { l =>
+        List(l,l.reverse)
+      }.map(_.reduce(_+_).magnitude).max
+//    ns.flatMap {
+//      a =>
+//        ns.filterNot { b => a == b }
+//          .map { b => (a + b).magnitude }
+//    }.max
   }
 
   @main
