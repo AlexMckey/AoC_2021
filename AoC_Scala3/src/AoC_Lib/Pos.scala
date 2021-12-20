@@ -8,7 +8,8 @@ trait BoxPosOps[A <: BoxPosOps[A]] extends PosOps[A] {
 
 trait PosOps[A <: PosOps[A]] {
   def +(that: A): A
-  def *:(k: Int): A
+  def *(k: Int): A
+  def *:(k: Int): A = this * k
 
   def unary_- : A = -1 *: this
   def -(that: A): A = this + (-that)
@@ -24,7 +25,7 @@ case class Pos(x: Int, y: Int) extends BoxPosOps[Pos] {
   override def +(that: Pos): Pos =
     Pos(x + that.x, y + that.y)
 
-  override def *:(k: Int): Pos =
+  override def *(k: Int): Pos =
     Pos(k * x, k * y)
 
   override def manhattanDistance(that: Pos): Int =
@@ -43,6 +44,7 @@ case class Pos(x: Int, y: Int) extends BoxPosOps[Pos] {
   
   def near4: Seq[Pos] = Pos.axisOffsets.map(_ + this)
   def near: Seq[Pos] = Pos.allOffsets.map(_ + this)
+  def all9: Seq[Pos] = Pos.all9Sorted.map(_ + this)
 }
 
 object Pos extends PosFactory[Pos] {
@@ -56,4 +58,7 @@ object Pos extends PosFactory[Pos] {
   val axisOffsets: Seq[Pos] = Seq(Pos(0, 1), Pos(-1, 0), Pos(1, 0), Pos(0, -1))
   val diagonalOffsets: Seq[Pos] = Seq(Pos(-1, 1), Pos(1, 1), Pos(-1, -1), Pos(1, -1))
   val allOffsets: Seq[Pos] = axisOffsets ++ diagonalOffsets
+  val all9Sorted: Seq[Pos] = Seq(Pos(-1, -1), Pos(0, -1), Pos(1, -1),
+                                 Pos(-1,  0), Pos(0,  0), Pos(1,  0),
+                                 Pos(-1,  1), Pos(0,  1), Pos(1,  1))
 }
