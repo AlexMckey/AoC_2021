@@ -93,15 +93,14 @@ object Day18: SomeDay(2021, 18) {
             .map(SnailfishNumber::parse)
             .reduce(SnailfishNumber::plus)
             .magnitude
-    //
+    // 4008 Time: 70ms
 
     override fun second(data: String): Any? {
         val nums = data.toStrs().map(SnailfishNumber::parse)
-        return nums
-            .flatMap { n1 -> nums
-                .map { n2 -> (n1 + n2).magnitude } }
+        return nums.pairs()
+            .map { (it.first + it.second).magnitude }
             .maxOrNull()
-    } //
+    } // 4667 Time: 166ms
 }
 
 fun main() = SomeDay.mainify(Day18)
