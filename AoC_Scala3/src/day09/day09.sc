@@ -54,4 +54,4 @@ b0_5.size
 
 findBasin(lp0)
 val bs: List[Int] = lps.map((p,i) => findBasin(p))
-bs.sorted(Ordering.Int.reverse).take(3).reduce(_ * _)
+bs.sorted(Ordering.Int.reverse).take(3).product
