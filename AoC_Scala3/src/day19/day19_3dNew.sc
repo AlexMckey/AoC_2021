@@ -96,7 +96,7 @@ scannerOrientations(sensors.head) diff myScannerOrientations(sensors.head)
 def findTransformIfIntersects(left: Set[Pos3D], right: Set[Pos3D]): Option[Transform] = {
   (for {
     p1 <- left
-    rightReoriented <- scannerOrientations(right)
+    rightReoriented <- myScannerOrientations(right)
     p2 <- rightReoriented
     d = p1 - p2
     moved = rightReoriented.map(_ + d)
@@ -107,7 +107,7 @@ def findTransformIfIntersects(left: Set[Pos3D], right: Set[Pos3D]): Option[Trans
 findTransformIfIntersects(sensors.head,sensors(1))
 val left = sensors(0)
 val right = sensors(1)
-val rightAllOrientation = scannerOrientations(right)
+val rightAllOrientation = myScannerOrientations(right)
 val rightReoriented = rightAllOrientation.head
 val p1 = left.head
 val p2 = rightReoriented.head
@@ -126,13 +126,11 @@ left.map{ p1 =>
 
 def matchScanner(scanner1: Set[Pos3D], scanner2: Set[Pos3D]) = {
   (for {
-    rightReoriented <- scannerOrientations(scanner2).iterator
+    rightReoriented <- myScannerOrientations(scanner2).iterator
     p1 <- scanner1.iterator
     p2 <- rightReoriented.iterator
     d = p1 - p2
-    //intersect2 = scanner2 & scanner1.map(_ - d)
     intersect2 = rightReoriented.map(_ + d) intersect scanner1 // faster
-    () = println(intersect2.size)
     if intersect2.size >= 12
   } yield (rightReoriented, d)).nextOption()
 }
@@ -150,7 +148,7 @@ extension [A](it: Iterator[A]) {
 
 def matchNotMyScanner(beacons: Set[Pos3D], scanner: Set[Pos3D]): Option[(Set[Pos3D], Pos3D)] = {
   (for {
-    orientedScanner <- scannerOrientations(scanner).iterator
+    orientedScanner <- myScannerOrientations(scanner).iterator
     ds = (for {
       p1 <- beacons.iterator
       p2 <- orientedScanner.iterator

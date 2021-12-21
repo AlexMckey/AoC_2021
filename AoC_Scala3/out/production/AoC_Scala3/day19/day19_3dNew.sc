@@ -129,9 +129,9 @@ def matchScanner(scanner1: Set[Pos3D], scanner2: Set[Pos3D]) = {
     rightReoriented <- scannerOrientations(scanner2).iterator
     p1 <- scanner1.iterator
     p2 <- rightReoriented.iterator
-    d = p1 - p2 // this way fits with examples
+    d = p1 - p2
     //intersect2 = scanner2 & scanner1.map(_ - d)
-    intersect2 = rightReoriented.map(_ + d) intersect scanner1 // faster this way because & filters left and looks up right
+    intersect2 = rightReoriented.map(_ + d) intersect scanner1 // faster
     () = println(intersect2.size)
     if intersect2.size >= 12
   } yield (rightReoriented, d)).nextOption()
@@ -149,14 +149,6 @@ extension [A](it: Iterator[A]) {
 }
 
 def matchNotMyScanner(beacons: Set[Pos3D], scanner: Set[Pos3D]): Option[(Set[Pos3D], Pos3D)] = {
-  /*(for {
-    orientedScanner <- scannerOrientations(scanner).iterator
-    p1 <- beacons.iterator
-    p2 <- orientedScanner.iterator
-    d = p1 - p2 // this way fits with examples
-    if orientedScanner.view.map(_ + d).filter(beacons).sizeIs >= 12 // iterate over smaller scanner2, avoid any intermediate collections
-  } yield (orientedScanner.map(_ + d), d)).headOption*/
-  // TODO: is this guaranteed to be correct? could differences corresponding to different translations combine to >= 12 without neither being?
   (for {
     orientedScanner <- scannerOrientations(scanner).iterator
     ds = (for {
