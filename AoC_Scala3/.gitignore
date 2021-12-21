@@ -25,3 +25,5 @@ classes/
 .idea
 .idea_modules
 /.worksheet/
+/out/production/AoC_Scala3/day21/day21.sc
+/out/production/AoC_Scala3/day20/day20_tricky.sc
