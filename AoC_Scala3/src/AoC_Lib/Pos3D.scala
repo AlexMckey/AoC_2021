@@ -9,21 +9,10 @@ case class Pos3D(x: Int, y: Int, z: Int) {
   def *(k: Int): Pos3D = Pos3D(x * k, y * k, z * k)
   def *:(k: Int): Pos3D = Pos3D(x * k, y * k, z * k)
   def *(pos3D: Pos3D): Pos3D = Pos3D(x * pos3D.x, y * pos3D.y, z * pos3D.z)
-  private def facing: List[Pos3D] = List(
-    this,
-    Pos3D(x,-y,-z),
-    Pos3D(x,-z,y),
-    Pos3D(-y,-z,x),
-    Pos3D(y,-z,-x),
-    Pos3D(-x,-z,-y),
-  )
-  private def rotating: List[Pos3D] = List(
-    this,
-    Pos3D(-y,x,z),
-    Pos3D(-x,-y,z),
-    Pos3D(y,-x,z)
-  )
-  def allOrientation: List[Pos3D] = facing.flatMap(f => f.rotating)
+  def <=(that: Pos3D): Boolean = x <= that.x && y <= that.y && z <= that.z
+  def min(that: Pos3D): Pos3D = Pos3D(x min that.x, y min that.y, z min that.z)
+  def max(that: Pos3D): Pos3D = Pos3D(x max that.x, y max that.y, z max that.z)
+
 }
 object Pos3D {
   val zero: Pos3D = Pos3D(0, 0, 0)
