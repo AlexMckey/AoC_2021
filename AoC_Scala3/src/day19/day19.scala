@@ -8,6 +8,24 @@ object day19 {
 
   type Scanner = Set[Pos3D]
 
+  extension (p: Pos3D) {
+    private def facing: List[Pos3D] = List(
+      p,
+      Pos3D(p.x, -p.y, -p.z),
+      Pos3D(p.x, -p.z, p.y),
+      Pos3D(-p.y, -p.z, p.x),
+      Pos3D(p.y, -p.z, -p.x),
+      Pos3D(-p.x, -p.z, -p.y),
+    )
+    private def rotating: List[Pos3D] = List(
+      p,
+      Pos3D(-p.y, p.x, p.z),
+      Pos3D(-p.x, -p.y, p.z),
+      Pos3D(p.y, -p.x, p.z)
+    )
+    def allOrientation: List[Pos3D] = facing.flatMap(f => f.rotating)
+  }
+
   def scannerTransformation(scanner: Scanner): Seq[Scanner] =
     scanner.toSeq.map(_.allOrientation).transpose.map(_.toSet)
 

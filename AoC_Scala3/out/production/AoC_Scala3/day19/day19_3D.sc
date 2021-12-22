@@ -83,10 +83,8 @@ def matchScanner(scanner1: Set[Pos3D], scanner2: Set[Pos3D]) = {
     scanner2 <- scannerOrientations(scanner2).iterator
     p1 <- scanner1.iterator
     p2 <- scanner2.iterator
-    d = p1 - p2 // this way fits with examples
-    //intersect2 = scanner2 & scanner1.map(_ - d)
+    d = p1 - p2
     intersect2 = scanner2.map(_ + d) & scanner1 // faster this way because & filters left and looks up right
-    //() = println(intersect2.size)
     if intersect2.size >= 12
   } yield (scanner2, intersect2, d)).nextOption()
 }
@@ -103,7 +101,6 @@ def solve(scanners: Seq[Set[Pos3D]]): (Set[Pos3D], Map[Int, Pos3D]) = {
         (scanner, i) <- scanners.iterator
         m <- matchScanner(beacons, scanner)
       } yield ((scanner, i), m)).next
-      //println(s"match $i")
       val newBeacons = beacons ++ scanner2.map(_ + d)
       val newScanners = scanners.filterNot(_ == (scanner, i))
       val newPoss = poss + (i -> d)
