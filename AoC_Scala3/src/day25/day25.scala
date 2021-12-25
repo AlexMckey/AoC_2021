@@ -11,9 +11,8 @@ object day25 {
     def goRight: Pos = if p.x == max.x then p.copy(x = 0) else p + Pos(1,0)
     def goDown: Pos = if p.y == max.y then p.copy(y = 0) else p + Pos(0,1)
 
-  def parseCucumberSea(s: Seq[String]): ((Set[Pos],Set[Pos]),Pos) = {
-    val cs = s
-      .zipWithIndex
+  def parseCucumberSea(ss: Seq[String]): (Cucumbers,Pos) = {
+    val cs: Map[Pos,Char] = ss.zipWithIndex
       .flatMap { (s,y) =>
         s.zipWithIndex
           .map { (c,x) => Pos(x,y) -> c }
