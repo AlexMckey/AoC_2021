@@ -1,5 +1,3 @@
-import AoC_Lib.toInts
-
 val s = "199\n" +
         "200\n" +
         "208\n" +

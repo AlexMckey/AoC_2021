@@ -38,7 +38,7 @@ object day21 {
           quantumDie.map{ (space, count) =>
               val pos = calcPos(p1p, space)
               val score = p1s + pos
-              val (p2Cnt, p1Cnt) = if score >= 21
+              val (p2Cnt, p1Cnt) = if score >= limit
                 then (0L, 1L)
                 else rec(p2p, pos, p2s, score)
               (p1Cnt, p2Cnt) * count}
