@@ -36,6 +36,9 @@ data class Pos(var x: Int = 0, var y: Int = 0): Nears<Pos>() {
     operator fun times(other: Int) = Pos(x * other, y * other)
     operator fun times(other: Pos) = Pos(x * other.x, y * other.y)
     operator fun timesAssign(other: Int) = run { x *= other; y *= other }
+    infix fun max(other: Pos): Pos = Pos(x.coerceAtLeast(other.x), y.coerceAtLeast(other.y))
+    operator fun rem(other: Pos): Pos = Pos(x % other.x, y % other.y)
+    fun wrapAround(max: Pos): Pos = this % (max + Pos(1,1))
 
     fun manhattanDistance(p2: Pos = Zero): Int {
         return abs(this.x - p2.y) + abs(this.y - p2.y)
@@ -52,6 +55,10 @@ data class Pos(var x: Int = 0, var y: Int = 0): Nears<Pos>() {
     }
 
     override fun near(dir: NearDir): List<Pos> = dir.ds.map { it + this }
+    operator fun compareTo(other: Pos): Int {
+        val d = this - other
+        return if (d.x == 0) d.y else d.x
+    }
 }
 
 fun Pos.toPair(): Pair<Int,Int> = this.x to this.y
