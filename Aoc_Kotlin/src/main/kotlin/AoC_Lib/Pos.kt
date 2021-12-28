@@ -37,6 +37,7 @@ data class Pos(var x: Int = 0, var y: Int = 0): Nears<Pos>() {
     operator fun times(other: Pos) = Pos(x * other.x, y * other.y)
     operator fun timesAssign(other: Int) = run { x *= other; y *= other }
     infix fun max(other: Pos): Pos = Pos(x.coerceAtLeast(other.x), y.coerceAtLeast(other.y))
+    infix fun min(other: Pos): Pos = Pos(x.coerceAtMost(other.x), y.coerceAtMost(other.y))
     operator fun rem(other: Pos): Pos = Pos(x % other.x, y % other.y)
     fun wrapAround(max: Pos): Pos = this % (max + Pos(1,1))
 
